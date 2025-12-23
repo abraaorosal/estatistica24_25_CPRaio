@@ -384,7 +384,7 @@ export default function Home() {
                 <div className="flex flex-col gap-4 bg-gradient-to-r from-white to-warm/60 px-6 py-6 md:flex-row md:items-center md:justify-between">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate">
-                      Destaque institucional
+                      Formação e Qualificação do Efetivo
                     </p>
                     <h2 className="mt-2 font-display text-2xl text-ink">
                       Policiais Qualificados
@@ -463,7 +463,7 @@ export default function Home() {
                 <div className="flex flex-col gap-4 bg-gradient-to-r from-white to-warm/60 px-6 py-6 md:flex-row md:items-center md:justify-between">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate">
-                      Destaque operacional
+                      Operações Realizadadas
                     </p>
                     <h2 className="mt-2 font-display text-2xl text-ink">
                       Operações
@@ -895,7 +895,8 @@ export default function Home() {
               <div className="space-y-4 text-sm text-slate">
                 <p>
                   Fonte: Relatórios Operacionais Consolidados — Sistema Integrado de
-                  Gerenciamento Estatístico.
+                  Gerenciamento Estatístico; Superintendência de Pesquisa e
+                  Estratégia de Segurança Pública.
                 </p>
                 <p>
                   Períodos analisados: 2024-01-01 a 2024-12-22 e 2025-01-01 a
