@@ -219,7 +219,16 @@ export default function Home() {
     }));
   }, [kpiData]);
 
-  const insights = useMemo(() => buildInsights(growthChartData), [growthChartData]);
+  const insights = useMemo(
+    () =>
+      buildInsights(
+        growthChartData.map((item) => ({
+          name: item.name,
+          percent: item.crescimento
+        }))
+      ),
+    [growthChartData]
+  );
 
   const rankingRows = rankings[rankingTab] || [];
 
