@@ -396,9 +396,7 @@ export default function Home() {
                   <div className="flex items-center gap-4">
                     <div className="rounded-2xl bg-white px-5 py-4 shadow-soft">
                       <p className="text-3xl font-semibold text-ink">1631</p>
-                      <p className="text-xs text-slate">
-                        PPMM qualificados em Glock
-                      </p>
+                      <p className="text-xs text-slate">PPMM Qualificados</p>
                     </div>
                     <div className="text-2xl">{trainingOpen ? "−" : "+"}</div>
                   </div>
