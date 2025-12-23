@@ -64,8 +64,10 @@ export type DataWarnings = {
   notes: string[];
 };
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 export async function fetchCsv(path: string) {
-  const response = await fetch(path);
+  const response = await fetch(`${BASE_PATH}${path}`);
   if (!response.ok) {
     throw new Error(`Falha ao carregar ${path}`);
   }

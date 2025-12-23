@@ -34,6 +34,7 @@ import {
 } from "@/lib/data/loader";
 
 const THEME_PRIMARY = "#F2C200";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const METRIC_OPTIONS = [
   { value: "Ocorrencias", label: "Ocorrências" },
@@ -330,7 +331,7 @@ export default function Home() {
         <header className="flex flex-col gap-6 rounded-[32px] bg-white/80 p-6 shadow-card md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col gap-4 md:flex-row md:items-center">
             <img
-              src="/assets/logo-raio.png"
+              src={`${BASE_PATH}/assets/logo-raio.png`}
               alt="Logo RAIO"
               className="h-20 w-auto md:h-24"
             />
@@ -345,7 +346,7 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-4 rounded-2xl bg-white/80 p-4">
             <img
-              src="/assets/logo-pmce.png"
+              src={`${BASE_PATH}/assets/logo-pmce.png`}
               alt="Logo PMCE"
               className="h-14 w-auto"
             />
