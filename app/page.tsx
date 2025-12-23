@@ -330,11 +330,13 @@ export default function Home() {
       <section className="mx-auto max-w-6xl space-y-8">
         <header className="flex flex-col gap-6 rounded-[32px] bg-white/80 p-6 shadow-card md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col gap-4 md:flex-row md:items-center">
-            <img
-              src={`${BASE_PATH}/assets/logo-raio.png`}
-              alt="Logo RAIO"
-              className="h-20 w-auto md:h-24"
-            />
+            <div className="w-full md:w-auto">
+              <img
+                src={`${BASE_PATH}/assets/logo-raio.png`}
+                alt="Logo RAIO"
+                className="h-16 w-auto max-w-full object-contain md:h-24"
+              />
+            </div>
             <div>
               <h1 className="font-display text-2xl text-ink md:text-3xl">
                 Painel Estatístico CPRAIO 2025 – Comparativo 2024–2025
@@ -348,7 +350,7 @@ export default function Home() {
             <img
               src={`${BASE_PATH}/assets/logo-pmce.png`}
               alt="Logo PMCE"
-              className="h-14 w-auto"
+              className="h-12 w-auto max-w-[64px] object-contain"
             />
             <div>
               <p className="text-xs font-semibold text-slate">
