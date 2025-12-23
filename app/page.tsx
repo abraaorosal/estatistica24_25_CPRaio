@@ -157,6 +157,8 @@ export default function Home() {
   const [comparatorBase, setComparatorBase] = useState("2024");
   const [comparatorCompare, setComparatorCompare] = useState("2025");
   const [comparatorView, setComparatorView] = useState("absolute");
+  const [trainingOpen, setTrainingOpen] = useState(false);
+  const [operationsOpen, setOperationsOpen] = useState(false);
 
   const mainChartRef = useRef<HTMLDivElement>(null);
   const rankingChartRef = useRef<HTMLDivElement>(null);
@@ -372,6 +374,143 @@ export default function Home() {
           </TabsList>
 
           <TabsContent value="visao" className="mt-8 space-y-8 animate-float">
+            <Card className="p-0 overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setTrainingOpen((prev) => !prev)}
+                className="w-full text-left"
+                aria-expanded={trainingOpen}
+              >
+                <div className="flex flex-col gap-4 bg-gradient-to-r from-white to-warm/60 px-6 py-6 md:flex-row md:items-center md:justify-between">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate">
+                      Destaque institucional
+                    </p>
+                    <h2 className="mt-2 font-display text-2xl text-ink">
+                      Policiais Qualificados
+                    </h2>
+                    <p className="mt-2 text-sm text-slate">
+                      Clique para ver o detalhamento das turmas e participações.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="rounded-2xl bg-white px-5 py-4 shadow-soft">
+                      <p className="text-3xl font-semibold text-ink">1631</p>
+                      <p className="text-xs text-slate">
+                        PPMM qualificados em Glock
+                      </p>
+                    </div>
+                    <div className="text-2xl">{trainingOpen ? "−" : "+"}</div>
+                  </div>
+                </div>
+              </button>
+              {trainingOpen ? (
+                <div className="grid gap-4 border-t border-ink/10 bg-white/80 px-6 py-6 md:grid-cols-3">
+                  {[
+                    {
+                      title: "Participações totais",
+                      value: "1.855",
+                      detail: "Somatório de todas as formações registradas."
+                    },
+                    {
+                      title: "Turmas de nivelamento",
+                      value: "20",
+                      detail: "1.334 participações acumuladas."
+                    },
+                    {
+                      title: "CEPM + CMB",
+                      value: "16",
+                      detail: "15 turmas CEPM (274 formados) + 1 CMB (23 formados)."
+                    }
+                  ].map((item) => (
+                    <div
+                      key={item.title}
+                      className="rounded-2xl border border-ink/10 bg-white px-4 py-4 shadow-soft"
+                    >
+                      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate">
+                        {item.title}
+                      </p>
+                      <p className="mt-2 text-2xl font-semibold text-ink">
+                        {item.value}
+                      </p>
+                      <p className="mt-2 text-xs text-slate">{item.detail}</p>
+                    </div>
+                  ))}
+                  <div className="rounded-2xl border border-ink/10 bg-white px-4 py-4 shadow-soft md:col-span-3">
+                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate">
+                      Taxa de conclusão
+                    </p>
+                    <div className="mt-3 flex flex-wrap items-center gap-3">
+                      <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+                        53%
+                      </span>
+                      <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+                        57%
+                      </span>
+                      <p className="text-xs text-slate">
+                        Cursos principais mantiveram conclusão entre 53% e 57%.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+            </Card>
+            <Card className="p-0 overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setOperationsOpen((prev) => !prev)}
+                className="w-full text-left"
+                aria-expanded={operationsOpen}
+              >
+                <div className="flex flex-col gap-4 bg-gradient-to-r from-white to-warm/60 px-6 py-6 md:flex-row md:items-center md:justify-between">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate">
+                      Destaque operacional
+                    </p>
+                    <h2 className="mt-2 font-display text-2xl text-ink">
+                      Operações
+                    </h2>
+                    <p className="mt-2 text-sm text-slate">
+                      Total registrado até 23/12/2025. Clique para detalhar por
+                      batalhão.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="rounded-2xl bg-white px-5 py-4 shadow-soft">
+                      <p className="text-3xl font-semibold text-ink">679</p>
+                      <p className="text-xs text-slate">
+                        Operações consolidadas
+                      </p>
+                    </div>
+                    <div className="text-2xl">{operationsOpen ? "−" : "+"}</div>
+                  </div>
+                </div>
+              </button>
+              {operationsOpen ? (
+                <div className="grid gap-4 border-t border-ink/10 bg-white/80 px-6 py-6 md:grid-cols-3">
+                  {[
+                    { label: "CPRAIO", value: "73" },
+                    { label: "1º BPRAIO", value: "208" },
+                    { label: "2º BPRAIO", value: "112" },
+                    { label: "3º BPRAIO", value: "72" },
+                    { label: "4º BPRAIO", value: "88" },
+                    { label: "5º BPRAIO", value: "126" }
+                  ].map((item) => (
+                    <div
+                      key={item.label}
+                      className="rounded-2xl border border-ink/10 bg-white px-4 py-4 shadow-soft"
+                    >
+                      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate">
+                        {item.label}
+                      </p>
+                      <p className="mt-2 text-2xl font-semibold text-ink">
+                        {item.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </Card>
             {loading ? (
               <EmptyState message="Carregando indicadores consolidados..." />
             ) : (
@@ -790,6 +929,10 @@ export default function Home() {
             </Card>
           </TabsContent>
         </Tabs>
+        <footer className="rounded-3xl border border-white/60 bg-white/70 px-6 py-4 text-center text-xs text-slate shadow-soft">
+          Relatório Produzido pelo Núcleo de Estatística e Análise Operacional
+          – NEAO / CPRaio
+        </footer>
       </section>
     </main>
   );
