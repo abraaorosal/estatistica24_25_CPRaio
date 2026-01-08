@@ -21,7 +21,7 @@ export const INDICATOR_LABELS = [
   "Total de Ocorrências",
   "Armas Apreendidas",
   "Mandados Cumpridos",
-  "Drogas Apreendidas",
+  "Drogas Apreendidas (kg)",
   "Veículos Apreendidos",
   "Prisões Realizadas"
 ];
@@ -32,7 +32,8 @@ export const INDICATOR_TOOLTIPS: Record<string, string> = {
   "Armas Apreendidas": "Armas retiradas de circulação no período.",
   "Mandados Cumpridos":
     "Mandados judiciais executados pelas equipes.",
-  "Drogas Apreendidas": "Ocorrências com apreensão de entorpecentes.",
+  "Drogas Apreendidas (kg)":
+    "Quantidade de drogas apreendidas no período, em kg.",
   "Veículos Apreendidos": "Veículos recolhidos em ações operacionais.",
   "Prisões Realizadas": "Conduções ou prisões efetivadas no período."
 };
@@ -40,22 +41,26 @@ export const INDICATOR_TOOLTIPS: Record<string, string> = {
 const indicatorAliases: Record<string, string> = {
   "prisões realizadas (conduções a delegacia)": "Prisões Realizadas",
   "prisões realizadas": "Prisões Realizadas",
+  "conduções realizadas": "Prisões Realizadas",
+  "conducoes realizadas": "Prisões Realizadas",
   "total de ocorrencias": "Total de Ocorrências",
   "total de ocorrências": "Total de Ocorrências",
   "armas apreendidas": "Armas Apreendidas",
   "mandados cumpridos": "Mandados Cumpridos",
-  "drogas apreendidas": "Drogas Apreendidas",
+  "drogas apreendidas": "Drogas Apreendidas (kg)",
+  "drogas apreendidas kg": "Drogas Apreendidas (kg)",
+  "drogas apreendidas (kg)": "Drogas Apreendidas (kg)",
   "veículos apreendidos": "Veículos Apreendidos",
   "veiculos apreendidos": "Veículos Apreendidos"
 };
 
 export const FALLBACK_TOTALS: Record<string, { 2024: number; 2025: number }> = {
-  "Total de Ocorrências": { 2024: 8025, 2025: 9122 },
-  "Armas Apreendidas": { 2024: 2454, 2025: 2914 },
-  "Mandados Cumpridos": { 2024: 851, 2025: 1042 },
-  "Drogas Apreendidas": { 2024: 1480, 2025: 1859 },
-  "Veículos Apreendidos": { 2024: 2645, 2025: 2699 },
-  "Prisões Realizadas": { 2024: 6824, 2025: 7578 }
+  "Total de Ocorrências": { 2024: 8025, 2025: 9348 },
+  "Armas Apreendidas": { 2024: 2454, 2025: 2979 },
+  "Mandados Cumpridos": { 2024: 851, 2025: 1062 },
+  "Drogas Apreendidas (kg)": { 2024: 1480, 2025: 1307 },
+  "Veículos Apreendidos": { 2024: 2645, 2025: 2979 },
+  "Prisões Realizadas": { 2024: 6824, 2025: 7771 }
 };
 
 export type DataWarnings = {
@@ -86,7 +91,7 @@ function parseNumber(value: string | number | undefined) {
   return Number.isNaN(parsed) ? NaN : parsed;
 }
 
-function normalizeIndicator(name: string) {
+export function normalizeIndicator(name: string) {
   const key = name.trim().toLowerCase();
   return indicatorAliases[key] || name.trim();
 }

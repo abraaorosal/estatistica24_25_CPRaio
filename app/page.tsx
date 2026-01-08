@@ -30,6 +30,7 @@ import {
   INDICATOR_TOOLTIPS,
   loadAllRankings,
   loadTotals,
+  normalizeIndicator,
   type RankingRow
 } from "@/lib/data/loader";
 
@@ -77,6 +78,18 @@ function getDelta(a: number, b: number) {
   return { diff, percent };
 }
 
+function resolveIndicatorTotals(
+  indicator: string,
+  totals: Record<string, { 2024: number; 2025: number }>
+) {
+  if (totals[indicator]) return totals[indicator];
+  const normalized = normalizeIndicator(indicator);
+  if (totals[normalized]) return totals[normalized];
+  const legacy = indicator.replace(" (kg)", "");
+  if (legacy !== indicator && totals[legacy]) return totals[legacy];
+  return { 2024: 0, 2025: 0 };
+}
+
 function downloadBlob(filename: string, content: string, type = "text/csv") {
   const blob = new Blob([content], { type });
   const link = document.createElement("a");
@@ -84,6 +97,13 @@ function downloadBlob(filename: string, content: string, type = "text/csv") {
   link.download = filename;
   link.click();
   URL.revokeObjectURL(link.href);
+}
+
+function downloadFile(url: string, filename: string) {
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.click();
 }
 
 function toCsv(rows: Array<Record<string, string | number>>) {
@@ -195,7 +215,7 @@ export default function Home() {
 
   const kpiData = useMemo(() => {
     return INDICATOR_LABELS.map((indicator) => {
-      const data = totals[indicator] || { 2024: 0, 2025: 0 };
+      const data = resolveIndicatorTotals(indicator, totals);
       const { diff, percent } = getDelta(data[2024], data[2025]);
       return {
         indicator,
@@ -278,7 +298,7 @@ export default function Home() {
   const comparatorData = useMemo(() => {
     const baseYear = Number(comparatorBase) as 2024 | 2025;
     const compareYear = Number(comparatorCompare) as 2024 | 2025;
-    const indicator = totals[comparatorIndicator] || { 2024: 0, 2025: 0 };
+    const indicator = resolveIndicatorTotals(comparatorIndicator, totals);
     const baseValue = indicator[baseYear];
     const compareValue = indicator[compareYear];
     const diff = compareValue - baseValue;
@@ -325,6 +345,13 @@ export default function Home() {
     }));
     const csv = toCsv(rows);
     downloadBlob("cpraio-ranking-filtrado.csv", csv);
+  };
+
+  const handleDownloadPdf = () => {
+    downloadFile(
+      `${BASE_PATH}/relatorios/2025consolidado.pdf`,
+      "2025consolidado.pdf"
+    );
   };
 
   return (
@@ -469,7 +496,7 @@ export default function Home() {
                       Operações
                     </h2>
                     <p className="mt-2 text-sm text-slate">
-                      Total registrado até 23/12/2025. Clique para detalhar por
+                      Total registrado até 31/12/2025. Clique para detalhar por
                       batalhão.
                     </p>
                   </div>
@@ -900,11 +927,14 @@ export default function Home() {
                 </p>
                 <p>
                   Períodos analisados: 2024-01-01 a 2024-12-22 e 2025-01-01 a
-                  2025-12-22.
+                  2025-12-31.
                 </p>
                 <p>
                   Dados consolidados de todas as unidades no período especificado.
                   Não há dados pessoais, apenas agregados.
+                </p>
+                <p>
+                  Relatório consolidado 2025 disponível em PDF (até 31/12/2025).
                 </p>
                 {warnings.length > 0 ? (
                   <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-800">
@@ -920,6 +950,9 @@ export default function Home() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Button onClick={handleExportProcessedCsv}>
                   Baixar CSV processado
+                </Button>
+                <Button variant="outline" onClick={handleDownloadPdf}>
+                  Baixar PDF consolidado 2025
                 </Button>
                 <Button variant="outline" onClick={exportMainChart}>
                   Exportar gráficos (PNG)
